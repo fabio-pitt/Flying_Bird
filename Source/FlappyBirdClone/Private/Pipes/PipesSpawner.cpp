@@ -1,6 +1,6 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
-#include "PipesSpawner.h"
+#include "Pipes/PipesSpawner.h"
 
 // Sets default values
 APipesSpawner::APipesSpawner()
@@ -10,7 +10,7 @@ APipesSpawner::APipesSpawner()
 }
 
 // Called every frame
-void APipesSpawner::Tick(float DeltaTime)
+void APipesSpawner::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

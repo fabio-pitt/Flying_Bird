@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
 #pragma once
 
@@ -19,7 +19,11 @@ public:
 
 	// The force of the impulse to apply to the bird
 	UPROPERTY(EditAnywhere)
-	float ImpulseForce = 100000.f;
+	float ImpulseForce = 10.f;
+
+	// The multiplier of the impulse to apply to the bird
+	UPROPERTY(EditAnywhere)
+	float ImpulseMultiplier = 10000.f;
 
 	// The bird game state
 	UPROPERTY(VisibleAnywhere)

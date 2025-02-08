@@ -1,6 +1,6 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
-#include "FlappyBirdClone/Public/Pipes.h"
+#include "Pipes/Pipes.h"
 
 // Sets default values
 APipes::APipes()
@@ -30,11 +30,14 @@ void APipes::Tick(const float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	// Check if the pipe is destructible
+	if (DestroyDelay <= 0) return;
+
 	// Updated the timer
 	ElapsedTime += DeltaSeconds;
 
 	// Move the pipes
-	if (ElapsedTime <= DestroyDelay)
+	if (ElapsedTime < DestroyDelay)
 	{
 		// Calculate the direction and get the new location
 		const FVector NewLocation = GetActorLocation() + DirectionSpeed * DeltaSeconds;
