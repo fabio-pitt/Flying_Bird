@@ -19,7 +19,6 @@ Developed with *Unreal Engine 5.4*
 
 *Images*
 - Audio: https://www.vecteezy.com/png/27379024-sound-speaker-icon-megaphone-announcement-icon-louder-sound-symbol-mp3-button-musical-design-elements-stereo-button-audio-symbol-speaker-pictogram-silhouette
-
 - No Audio: https://www.vecteezy.com/vector-art/27383291-no-sound-icon-no-noise-mute-button-keep-your-volume-lower-silence-icon-speaker-icon-megaphone-symbol-turn-off-button-with-red-cross-vector-illustration-musical-design-elements
 
 ### Other Software Used
