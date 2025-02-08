@@ -12,8 +12,7 @@ public class FlappyBirdClone : ModuleRules
 		{
 			"Core", "CoreUObject", "Engine",
 			"InputCore", "EnhancedInput",
-			"Slate", "SlateCore",
-			"UMG", "UMGEditor"
+			"Slate", "SlateCore", "UMG"
 		});
 	}
 }
