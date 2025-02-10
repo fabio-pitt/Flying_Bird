@@ -1,6 +1,7 @@
 ﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
 #include "Pipes/PipesSpawner.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APipesSpawner::APipesSpawner()
@@ -9,16 +10,28 @@ APipesSpawner::APipesSpawner()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+void APipesSpawner::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// Delay is set to the spawn delay
+	Delay = SpawnDelay;
+}
+
 // Called every frame
 void APipesSpawner::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Check if the game is paused
+	if (UGameplayStatics::IsGamePaused(GetWorld())) return;
+
 	// Spawn the pipes following the delay
-	if (GetWorld()->GetRealTimeSeconds() - SpawnTimer > SpawnDelay)
+	Delay -= DeltaTime;
+	if (Delay <= 0)
 	{
 		SpawnPipes();
-		SpawnTimer = GetWorld()->GetRealTimeSeconds();
+		Delay = SpawnDelay;
 	}
 }
 

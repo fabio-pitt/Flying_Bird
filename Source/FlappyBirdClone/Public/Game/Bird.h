@@ -17,17 +17,13 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* BirdMesh;
 
-	// The force of the impulse to apply to the bird
-	UPROPERTY(EditAnywhere)
-	float ImpulseForce = 10.f;
-
-	// The multiplier of the impulse to apply to the bird
-	UPROPERTY(EditAnywhere)
-	float ImpulseMultiplier = 10000.f;
-
 	// The bird game state
 	UPROPERTY(VisibleAnywhere)
 	ABirdGameState* BirdGameState;
+
+	// The force of the impulse to apply to the bird
+	UPROPERTY(EditAnywhere)
+	float ImpulseForce = 10.f;
 
 	// Sets default values for this actor's properties
 	ABird();

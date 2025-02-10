@@ -44,8 +44,5 @@ class FLAPPYBIRDCLONE_API UAudioMute : public UUserWidget
 	void ToggleAudioMute();
 
 	// Change the button image
-	void ChangeButtonImage() const;
-
-	// Change the image tint
-	void ChangeImageTint() const;	
+	void ChangeButtonStyle() const;
 };

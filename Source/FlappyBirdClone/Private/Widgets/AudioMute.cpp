@@ -13,17 +13,10 @@ void UAudioMute::NativeConstruct()
 	BirdInstance = UGetter::GetBirdInstance(GetWorld());
 
 	// When the mute button is clicked, call the function to toggle the audio mute
-	if (AudioMuteButton)
-	{
-		// Bind the mute button
-		AudioMuteButton->OnClicked.AddDynamic(this, &UAudioMute::ToggleAudioMute);
-
-		// Change the button image
-		ChangeButtonImage();
-
-		// Change the image tint
-		ChangeImageTint();
-	}
+	if (AudioMuteButton) AudioMuteButton->OnClicked.AddDynamic(this, &UAudioMute::ToggleAudioMute);
+		
+	// Change the button style
+	ChangeButtonStyle();
 
 	// Set the volume of the master sound class
 	if (MasterSoundClass) MasterSoundClass->Properties.Volume = BirdInstance->GetAudioState() ? 1 : 0;
@@ -32,59 +25,51 @@ void UAudioMute::NativeConstruct()
 // Toggle the audio mute
 void UAudioMute::ToggleAudioMute()
 {
-	// Check if the game instance is valid
-	if (!BirdInstance) return;
+	// Check the validation of the game instance, the audio mute button and the master sound class
+	if (!BirdInstance || !AudioMuteButton || !MasterSoundClass) return;
 	
 	// Change the audio state
 	BirdInstance->SetAudioState(!BirdInstance->GetAudioState());
 	
 	// Set the volume of the master sound class
-	if (MasterSoundClass) MasterSoundClass->Properties.Volume = BirdInstance->GetAudioState() ? 1 : 0;
+	MasterSoundClass->Properties.Volume = BirdInstance->GetAudioState() ? 1 : 0;
 
 	// Change the button image
-	ChangeButtonImage();
+	ChangeButtonStyle();
 }
 
 // Change the button image
-void UAudioMute::ChangeButtonImage() const
+void UAudioMute::ChangeButtonStyle() const
 {
-	// Check if the game instance is valid
-	if (!BirdInstance) return;
+	// Check the validation of the game instance and the button
+	if (!BirdInstance || !AudioMuteButton) return;
+
+	// Check if the images are valid
+	if (!AudioUnMutedImage || !AudioMutedImage) return;
 	
 	// Get the button style
 	FButtonStyle ButtonStyle = AudioMuteButton->GetStyle();
 
-	// Set the button image
-	FSlateBrush NewBrush;
-	NewBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
+	// Set the button for the normal state
+	FSlateBrush NormalBrush;
+	NormalBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
+	NormalBrush.TintColor = FLinearColor(0, 0, 0, 1);
 
-	// Update all button states
-	ButtonStyle.SetNormal(NewBrush);
-	ButtonStyle.SetHovered(NewBrush);
-	ButtonStyle.SetPressed(NewBrush);
+	// Set the button for the hovered state
+	FSlateBrush HoveredBrush;
+	HoveredBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
+	HoveredBrush.TintColor = FLinearColor(0.35, 0.35, 0.35, 1);
+
+	// Set the button for the pressed state
+	FSlateBrush PressedBrush;
+	PressedBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
+	PressedBrush.TintColor = FLinearColor(0.3, 0.15, 0.15, 1);
+
+	// Update the button states
+	ButtonStyle.SetNormal(NormalBrush);
+	ButtonStyle.SetHovered(HoveredBrush);
+	ButtonStyle.SetPressed(PressedBrush);
 
 	// Apply the button style
 	AudioMuteButton->SetStyle(ButtonStyle);
-}
-
-// Change the image tint
-void UAudioMute::ChangeImageTint() const
-{
-	// Get the button style
-	FButtonStyle ButtonStyle = AudioMuteButton->GetStyle();
-
-	// Set the button color for the normal state
-	FSlateBrush NormalBrush;
-	NormalBrush.TintColor = FLinearColor::Black;
-	ButtonStyle.SetNormal(NormalBrush);
-
-	// Set the button color for the hovered state
-	FSlateBrush HoveredBrush;
-	HoveredBrush.TintColor = FSlateColor(FLinearColor(0.35, 0.35, 0.35, 1));
-	ButtonStyle.SetHovered(HoveredBrush);
-
-	// Set the button color for the pressed state
-	FSlateBrush PressedBrush;
-	PressedBrush.TintColor = FSlateColor(FLinearColor(0.3, 0.15, 0.15, 1));;
-	ButtonStyle.SetPressed(PressedBrush);
 }

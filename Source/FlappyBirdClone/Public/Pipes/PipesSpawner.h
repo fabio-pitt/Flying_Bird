@@ -20,8 +20,8 @@ class FLAPPYBIRDCLONE_API APipesSpawner : public AActor
 	UPROPERTY(EditAnywhere)
 	float SpawnDelay = 2.f;
 
-	// The timer to spawn the pipes
-	float SpawnTimer = 0.f;
+	// The delay to spawn the pipes
+	float Delay = 0.f;
 
 	// The range to spawn the pipes
 	UPROPERTY(EditAnywhere)
@@ -30,6 +30,9 @@ class FLAPPYBIRDCLONE_API APipesSpawner : public AActor
 public:
 	// Sets default values for this actor's properties
 	APipesSpawner();
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

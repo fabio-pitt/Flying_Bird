@@ -14,7 +14,7 @@ Developed with *Unreal Engine 5.4*
 - Pipe: https://www.models-resource.com/wii_u/mariokart8/model/48928/
 
 *Sound Effects*
-- Point: https://pixabay.com/sound-effects/collect-points-190037/
+- Point: https://pixabay.com/sound-effects/ping-82822/
 - Lose: https://pixabay.com/sound-effects/080047-lose-funny-retro-video-game-80925/
 
 *Images*

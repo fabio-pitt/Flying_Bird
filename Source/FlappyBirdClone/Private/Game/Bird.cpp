@@ -1,6 +1,7 @@
 ﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
 #include "Game/Bird.h"
+#include "FlappyBirdClone/FlappyBirdClone.h"
 #include "Pipes/Pipes.h"
 #include "Other/Getter.h"
 #include "Other/Logs.h"
@@ -15,15 +16,30 @@ ABird::ABird()
 	BirdMesh = CreateDefaultSubobject<UStaticMeshComponent>("Bird");
 	SetRootComponent(BirdMesh);
 
-	// Enable physics, gravity and collision generation
+	// Enable physics and gravity
 	BirdMesh->SetSimulatePhysics(true);
 	BirdMesh->SetEnableGravity(true);
-	BirdMesh->SetGenerateOverlapEvents(true);
-
+	
 	// Set the collision types
+	BirdMesh->SetGenerateOverlapEvents(true);
 	BirdMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	BirdMesh->SetCollisionObjectType(ECC_PhysicsBody);
-	BirdMesh->SetCollisionResponseToAllChannels(ECR_Overlap);
+	BirdMesh->SetCollisionObjectType(BIRD);
+
+	// Set the collision response
+	BirdMesh->SetCollisionResponseToAllChannels(ECR_Block);
+	BirdMesh->SetCollisionResponseToChannel(BIRD, ECR_Ignore);
+	BirdMesh->SetCollisionResponseToChannel(PIPE, ECR_Overlap);
+	BirdMesh->SetCollisionResponseToChannel(SCORE, ECR_Overlap);
+
+	// Set physics constraints to prevent getting stuck
+	if (FBodyInstance* BodyInst = BirdMesh->GetBodyInstance())
+	{
+		BodyInst->bLockXRotation = true;
+		BodyInst->bLockYRotation = true;
+		BodyInst->bLockZRotation = true;
+		BodyInst->LinearDamping = 0.5f;    // Add some air resistance
+		BodyInst->MaxAngularVelocity = 0.0f; // Prevent rotation
+	}
 
 	// Bind the hit event
 	BirdMesh->OnComponentBeginOverlap.AddDynamic(this, &ABird::OnHit);
@@ -36,6 +52,13 @@ void ABird::BeginPlay()
 
 	// Get the bird game state
 	BirdGameState = UGetter::GetBirdGameState(GetWorld());
+
+	// Check if the bird mesh is valid
+	if (!BirdMesh) { ULogs::Error("Bird - BeginPlay: BirdMesh is null"); return; }
+
+	// Ensure physics is enabled
+	BirdMesh->SetSimulatePhysics(true);
+	BirdMesh->SetEnableGravity(true);
 }
 
 // Called when the actor is hit
@@ -44,16 +67,17 @@ void ABird::BeginPlay()
 void ABird::OnHit(UPrimitiveComponent*, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32, bool, const FHitResult&)
 {
 	// Check the other actor and component
-	if (OtherActor == nullptr) { ULogs::Error("Bird - OnHit: OtherActor is null"); return; }
-	if (OtherComp == nullptr) { ULogs::Error("Bird - OnHit: OtherComp is null"); return; }
+	if (!OtherActor || !OtherComp) { ULogs::Error("Bird - OnHit: invalid collision"); return; }
 
+	// Cast the pipes from the other actor
 	const APipes* Pipes = Cast<APipes>(OtherActor);
-	if (Pipes == nullptr) { ULogs::Error("Bird - OnHit: Pipes is null"); return; }
+	if (!Pipes) { ULogs::Error("Bird - OnHit: cannot cast pipes"); return; }
 
-	// Check the overlap component
+	// Check the overlap component: top pipe or bottom pipe = dead
 	if (OtherComp == Pipes->GetTopPipeMesh() || OtherComp == Pipes->GetBottomPipeMesh())
 		if (BirdGameState) BirdGameState->OnBirdDead();
 
+	// Check the overlap component: hit point = score
 	if (OtherComp == Pipes->GetHitPoint())
 		if (BirdGameState) BirdGameState->AddScore();
 }
@@ -61,6 +85,15 @@ void ABird::OnHit(UPrimitiveComponent*, AActor* OtherActor, UPrimitiveComponent*
 // Applies the impulse to the bird
 void ABird::ApplyImpulse() const
 {
-	const FVector Impulse = FVector(0, 0, ImpulseForce * ImpulseMultiplier);
-	BirdMesh->AddImpulse(Impulse);
+	// Check if the bird mesh is valid
+	if (!BirdMesh) { ULogs::Error("Bird - BeginPlay: BirdMesh is null"); return; }
+
+	// Reset vertical velocity
+	const FVector CurrentVelocity = BirdMesh->GetPhysicsLinearVelocity();
+	const FVector NewVelocity = FVector(CurrentVelocity.X, CurrentVelocity.Y, 0);
+	BirdMesh->SetPhysicsLinearVelocity(NewVelocity);
+	
+	// Calculate the impulse force and add to the mesh
+	const FVector Impulse = FVector(0, 0, ImpulseForce);
+	BirdMesh->AddImpulse(Impulse, NAME_None, true);
 }

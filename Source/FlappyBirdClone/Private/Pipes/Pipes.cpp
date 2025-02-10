@@ -1,6 +1,7 @@
 ﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
 #include "Pipes/Pipes.h"
+#include "FlappyBirdClone/FlappyBirdClone.h"
 
 // Sets default values
 APipes::APipes()
@@ -23,6 +24,11 @@ APipes::APipes()
 	// Create the hit point collision box
 	HitPoint = CreateDefaultSubobject<UBoxComponent>("HitPoint");
 	HitPoint->SetupAttachment(GetRootComponent());
+
+	// Set the collision types
+	TubeBottomMesh->SetCollisionObjectType(PIPE);
+	TubeTopMesh->SetCollisionObjectType(PIPE);
+	HitPoint->SetCollisionObjectType(SCORE);
 }
 
 // Called every frame
