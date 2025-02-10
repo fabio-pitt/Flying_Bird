@@ -19,10 +19,22 @@ protected:
 	UPROPERTY(SaveGame)
 	uint32 HighScore = 0;
 
+	// The audio state
+	UPROPERTY(SaveGame)
+	bool AudioEnabled = true;
+
 public:
+	/** SCORE **/
 	// Set the high score value
-	void SetHighScore(const uint32 HiScore) { HighScore = HiScore; }
+    void SetHighScore(const uint32 HiScore) { HighScore = HiScore; }
 
 	// Get the high score value
 	uint32 GetHighScore() const { return HighScore; }
+
+	/** AUDIO **/
+	// Set the audio state
+	void SetAudioState(const bool IsEnabled) { AudioEnabled = IsEnabled; }
+
+	// Get the audio state
+	bool GetAudioState() const { return AudioEnabled; }
 };

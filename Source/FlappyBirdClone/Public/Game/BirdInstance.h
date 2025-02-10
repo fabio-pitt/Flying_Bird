@@ -18,6 +18,9 @@ class FLAPPYBIRDCLONE_API UBirdInstance : public UGameInstance, public ISaveLoad
 	// The current score
 	uint32 CurrentScore = 0;
 
+	// The current mute state
+	bool bIsMuted = false;
+
 	// The current saved game
 	UPROPERTY(EditDefaultsOnly, Category="SaveLoad")
 	UBirdSave* BirdSave = nullptr;
@@ -45,7 +48,18 @@ public:
 	// The interface function to delete the game - not implemented
 	virtual void DeleteSave_Implementation() override;
 
-	/** GETTER **/
+	/********** SETTER **********/
+
+	// Set the current score
+	FORCEINLINE void SetCurrentScore(const uint32 Score) { CurrentScore = Score; }
+
+	// Set the high score
+	void SetHighScore(const uint32 Score) const;
+
+	// Set the audio state
+	void SetAudioState(const bool IsEnabled) const;
+
+	/********** GETTER **********/
 
 	// Get the current score
 	FORCEINLINE uint32 GetCurrentScore() const { return CurrentScore; }
@@ -53,11 +67,6 @@ public:
 	// Get the high score
 	uint32 GetHighScore() const;
 
-	/** SETTER **/
-
-	// Set the current score
-	FORCEINLINE void SetCurrentScore(const uint32 Score) { CurrentScore = Score; }
-
-	// Set the high score
-	void SetHighScore(const uint32 Score) const;
+	// Get the audio state
+	bool GetAudioState() const;
 };

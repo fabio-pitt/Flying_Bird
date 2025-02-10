@@ -103,7 +103,21 @@ void UBirdInstance::DeleteSave_Implementation()
 	else ULogs::Error("DeleteSave: there is no save");
 }
 
-/** GETTER **/
+/********** SETTER **********/
+
+// Set the high score
+void UBirdInstance::SetHighScore(const uint32 Score) const
+{
+	if (BirdSave) BirdSave->SetHighScore(Score);
+}
+
+// Set the mute state
+void UBirdInstance::SetAudioState(const bool IsEnabled) const
+{
+	if (BirdSave) BirdSave->SetAudioState(IsEnabled);
+}
+
+/********** GETTER **********/
 
 // Get the high score
 uint32 UBirdInstance::GetHighScore() const
@@ -112,11 +126,9 @@ uint32 UBirdInstance::GetHighScore() const
 	return BirdSave->GetHighScore();
 }
 
-/** SETTER **/
-
-// Set the high score
-void UBirdInstance::SetHighScore(const uint32 Score) const
+// Get the mute state
+bool UBirdInstance::GetAudioState() const
 {
-	if (BirdSave)
-		BirdSave->SetHighScore(Score);
+	if (!BirdSave) return false;
+	return BirdSave->GetAudioState();
 }
