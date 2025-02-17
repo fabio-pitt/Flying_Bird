@@ -19,6 +19,17 @@ void UGameWidget::NativeConstruct()
 	// Bind the high score event
 	BirdGameState->OnHighScore.AddDynamic(this, &UGameWidget::OnHighScore);
 
+	if (PauseButton)
+	{
+		// Bind the pause button if the player is using an Android device
+#if PLATFORM_ANDROID // this code is executed only in Android
+		PauseButton->SetVisibility(ESlateVisibility::Visible);
+		PauseButton->OnClicked.AddDynamic(this, &UGameWidget::OnPauseButtonClicked);
+#else
+		PauseButton->SetVisibility(ESlateVisibility::Hidden);
+#endif
+	}
+	
 	// Get the game instance
 	const auto BirdInstance = UGetter::GetBirdInstance(GetWorld());
 	if (!BirdInstance) return;
@@ -40,4 +51,15 @@ void UGameWidget::OnScore(const uint32 CurrentScore)
 void UGameWidget::OnHighScore(const uint32 HighScore)
 {
 	if (HighScoreText) HighScoreText->SetText(FText::AsNumber(HighScore));
+}
+
+// On pause button clicked
+void UGameWidget::OnPauseButtonClicked()
+{
+	// Get the player controller
+	const auto PlayerController = UGetter::GetBirdController(GetWorld());
+	if (!PlayerController) return;
+
+	// Pause the game
+	PlayerController->PauseGame();
 }

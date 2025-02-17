@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "GameWidget.generated.h"
 
@@ -23,10 +24,18 @@ class FLAPPYBIRDCLONE_API UGameWidget : public UUserWidget
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* HighScoreText;
 
-public:
+	// The button used to open the pause menu on Android devices
+	UPROPERTY(meta = (BindWidget))
+	UButton* PauseButton;
+
 	// Called when the widget is constructed
 	virtual void NativeConstruct() override;
 
+	// Called when the pause button is clicked - on Android devices
+	UFUNCTION()
+	void OnPauseButtonClicked();
+
+public:
 	// Called when the score is updated
 	UFUNCTION()
 	void OnScore(uint32 CurrentScore);

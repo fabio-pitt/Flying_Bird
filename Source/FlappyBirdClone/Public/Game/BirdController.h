@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Bird.h"
 #include "InputMappingContext.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 #include "Components/Widget.h"
 #include "Other/GameInput.h"
 #include "BirdController.generated.h"
@@ -40,7 +42,7 @@ protected:
 
 	// Called to check the input component
 	bool CheckInputComponent();
-
+	
 	// Called to bind the input actions
 	void BindInputActions();
 	
@@ -49,11 +51,11 @@ protected:
 
 	// Called to move the bird
 	void MoveBird();
-
+	
+public:
 	// Called to pause the game
 	void PauseGame();
 
-public:
 	// Show the cursor and set the focus on the widget
 	void ShowCursor_SetWidgetFocus(UWidget* WidgetToFocus);
 
