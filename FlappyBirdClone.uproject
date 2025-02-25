@@ -17,21 +17,6 @@
 			"TargetAllowList": [
 				"Editor"
 			]
-		},
-		{
-			"Name": "LocationServicesAndroidImpl",
-			"Enabled": true
-		},
-		{
-			"Name": "OptionalMobileFeaturesBPLibrary",
-			"Enabled": true
-		},
-		{
-			"Name": "AndroidBackgroundService",
-			"Enabled": true,
-			"SupportedTargetPlatforms": [
-				"Android"
-			]
 		}
 	],
 	"TargetPlatforms": [
