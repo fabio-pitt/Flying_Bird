@@ -27,12 +27,19 @@ class FLAPPYBIRDCLONE_API APipesSpawner : public AActor
 	UPROPERTY(EditAnywhere)
 	FFloatRange SpawnRange = FFloatRange(-500, 500);
 
+	// Check to start the game
+	bool IsStarted = false;
+
 public:
 	// Sets default values for this actor's properties
 	APipesSpawner();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// Called to start the spawn
+	UFUNCTION()
+	void StartSpawn();
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

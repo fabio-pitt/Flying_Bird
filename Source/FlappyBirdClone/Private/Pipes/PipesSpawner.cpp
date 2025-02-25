@@ -2,6 +2,7 @@
 
 #include "Pipes/PipesSpawner.h"
 #include "Kismet/GameplayStatics.h"
+#include "Other/Getter.h"
 
 // Sets default values
 APipesSpawner::APipesSpawner()
@@ -16,12 +17,28 @@ void APipesSpawner::BeginPlay()
 
 	// Delay is set to the spawn delay
 	Delay = SpawnDelay;
+
+	// Get the game state
+	const auto GameState = UGetter::GetBirdGameState(GetWorld());
+	if (!GameState) return;
+	
+	// Start to spawn after the GameState delay
+	GameState->OnStartGame.AddDynamic(this, &APipesSpawner::StartSpawn);
+}
+
+// Check to start the game
+void APipesSpawner::StartSpawn()
+{
+	IsStarted = true;
 }
 
 // Called every frame
 void APipesSpawner::Tick(const float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	// Check if the game is not started yet
+	if (!IsStarted) return;
 
 	// Check if the game is paused
 	if (UGameplayStatics::IsGamePaused(GetWorld())) return;

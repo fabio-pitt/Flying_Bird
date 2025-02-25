@@ -8,14 +8,36 @@
 // Constructor
 ABirdGameState::ABirdGameState():
 	BirdInstance(nullptr), ScoreSound(nullptr), DeadSound(nullptr)
-{}
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
 
+// Called when the game start
 void ABirdGameState::BeginPlay()
 {
 	Super::BeginPlay();
 
 	// Get the game instance
 	BirdInstance = UGetter::GetBirdInstance(GetWorld());
+
+	// Countdown is the start countdown
+	Countdown = StartCountdown;
+}
+
+// Called every tick
+void ABirdGameState::Tick(const float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	GEngine->AddOnScreenDebugMessage(-1, .001, FColor::Red, "BirdGameState::Tick");
+
+	// Countdown to start the game
+	Countdown -= DeltaSeconds;
+	if (Countdown <= 0) // When the countdown reach zero
+	{
+		OnStartGame.Broadcast(); // Start game event
+		SetActorTickEnabled(false); // Disable the tick
+	}
 }
 
 // Score

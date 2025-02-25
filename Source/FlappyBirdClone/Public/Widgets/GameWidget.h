@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Game/BirdGameState.h"
 #include "GameWidget.generated.h"
 
 /**
@@ -28,8 +29,19 @@ class FLAPPYBIRDCLONE_API UGameWidget : public UUserWidget
 	UPROPERTY(meta = (BindWidget))
 	UButton* PauseButton;
 
+	// The text to show the start countdown
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CountdownText;
+
+	// Cache the game state
+	UPROPERTY()
+	ABirdGameState* BirdGameState;
+
 	// Called when the widget is constructed
 	virtual void NativeConstruct() override;
+
+	// Called every tick
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 	// Called when the pause button is clicked - on Android devices
 	UFUNCTION()

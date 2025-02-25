@@ -9,16 +9,20 @@ void UGameWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	// At the start, set the countdown text visible
+	CountdownText->SetVisibility(ESlateVisibility::Visible);
+
 	// Cast the bird game state and check if it is valid
-	ABirdGameState* BirdGameState = UGetter::GetBirdGameState(GetWorld());
-	if (!BirdGameState) return;
+	BirdGameState = UGetter::GetBirdGameState(GetWorld());
+	if (BirdGameState)
+	{
+		// Bind the score event
+		BirdGameState->OnScore.AddDynamic(this, &UGameWidget::OnScore);
+
+		// Bind the high score event
+		BirdGameState->OnHighScore.AddDynamic(this, &UGameWidget::OnHighScore);
+	}
 	
-	// Bind the score event
-	BirdGameState->OnScore.AddDynamic(this, &UGameWidget::OnScore);
-
-	// Bind the high score event
-	BirdGameState->OnHighScore.AddDynamic(this, &UGameWidget::OnHighScore);
-
 	if (PauseButton)
 	{
 		// Bind the pause button if the player is using an Android device
@@ -31,12 +35,34 @@ void UGameWidget::NativeConstruct()
 	}
 	
 	// Get the game instance
-	const auto BirdInstance = UGetter::GetBirdInstance(GetWorld());
-	if (!BirdInstance) return;
+	if (const auto BirdInstance = UGetter::GetBirdInstance(GetWorld()))
+	{
+		// Reset the texts
+		OnScore(BirdInstance->GetCurrentScore());
+		OnHighScore(BirdInstance->GetHighScore());
+	}
+}
 
-	// Reset the texts
-	OnScore(BirdInstance->GetCurrentScore());
-	OnHighScore(BirdInstance->GetHighScore());
+// Called every tick
+void UGameWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	// Avoid the tick function if the countdown text is already hidden
+	if (CountdownText->GetVisibility() == ESlateVisibility::Hidden) return;
+
+	// Get the current countdown in GameState
+	const float Countdown = BirdGameState->GetCountdown();
+	if (Countdown > 0) // is counting
+	{
+		// Round up the countdown int
+		const int8 CountdownInt = FMath::CeilToInt(Countdown);
+		CountdownText->SetText(FText::AsNumber(CountdownInt));
+	}
+	else // is ended
+	{
+		CountdownText->SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
 // On score
@@ -54,6 +80,7 @@ void UGameWidget::OnHighScore(const uint32 HighScore)
 }
 
 // On pause button clicked
+// ReSharper disable once CppMemberFunctionMayBeConst
 void UGameWidget::OnPauseButtonClicked()
 {
 	// Get the player controller

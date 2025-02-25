@@ -7,7 +7,9 @@
 #include "GameFramework/GameStateBase.h"
 #include "BirdGameState.generated.h"
 
-// Declare delegates for score and dead events
+// Declare delegates (start, score, pause, dead)
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnStartGame);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCountdown, float, Countdown);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnScore, uint32, Score);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPause, bool, IsPaused);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDead);
@@ -40,7 +42,21 @@ class FLAPPYBIRDCLONE_API ABirdGameState : public AGameStateBase
 	UPROPERTY(EditDefaultsOnly, Category="Sound")
 	float DeadSoundVolume = 1.0f;
 
+	// The countdown in seconds to start the game
+	UPROPERTY(EditDefaultsOnly, Category="Countdown")
+	int StartCountdown = 3;
+
+	// The countdown itself
+	float Countdown = 0.f;
+
+	// TimerHandle to start the game
+	FTimerHandle StartTimer;
+
 public:
+	// Delegate for start the game
+	UPROPERTY(BlueprintAssignable, Category="Events")
+	FOnStartGame OnStartGame;
+	
 	// Delegate for score
 	UPROPERTY(BlueprintAssignable, Category="Events")
 	FOnScore OnScore;
@@ -64,6 +80,9 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// Called every tick - to countdown
+	virtual void Tick(float DeltaSeconds) override;
+
 public:
 	// Add the current score
 	void AddScore(uint8 Score = 1) const;
@@ -79,4 +98,7 @@ public:
 
 	// Called on dead
 	void OnBirdDead() const;
+
+	// Get the countdown
+	float GetCountdown() const { return Countdown; }
 };

@@ -31,6 +31,13 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// The function to start the game
+	UFUNCTION()
+	void StartGame();
+
+	// The function to enable the physics
+	void EnablePhysics() const;
 	
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,

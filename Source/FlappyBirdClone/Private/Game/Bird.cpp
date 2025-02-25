@@ -17,8 +17,8 @@ ABird::ABird()
 	SetRootComponent(BirdMesh);
 
 	// Enable physics and gravity
-	BirdMesh->SetSimulatePhysics(true);
-	BirdMesh->SetEnableGravity(true);
+	BirdMesh->SetSimulatePhysics(false);
+	BirdMesh->SetEnableGravity(false);
 	
 	// Set the collision types
 	BirdMesh->SetGenerateOverlapEvents(true);
@@ -52,11 +52,22 @@ void ABird::BeginPlay()
 
 	// Get the bird game state
 	BirdGameState = UGetter::GetBirdGameState(GetWorld());
+	if (!BirdGameState) return;
 
-	// Check if the bird mesh is valid
-	if (!BirdMesh) { ULogs::Error("Bird - BeginPlay: BirdMesh is null"); return; }
+	// Get the delegate to star the game
+	BirdGameState->OnStartGame.AddDynamic(this, &ABird::StartGame);
+}
 
-	// Ensure physics is enabled
+// Called to start the game
+// ReSharper disable once CppMemberFunctionMayBeConst
+void ABird::StartGame()
+{
+	EnablePhysics();
+}
+
+// Called to enable physics
+void ABird::EnablePhysics() const
+{
 	BirdMesh->SetSimulatePhysics(true);
 	BirdMesh->SetEnableGravity(true);
 }
@@ -86,7 +97,10 @@ void ABird::OnHit(UPrimitiveComponent*, AActor* OtherActor, UPrimitiveComponent*
 void ABird::ApplyImpulse() const
 {
 	// Check if the bird mesh is valid
-	if (!BirdMesh) { ULogs::Error("Bird - BeginPlay: BirdMesh is null"); return; }
+	if (!BirdMesh) { ULogs::Error("Bird - ApplyImpulse: BirdMesh is null"); return; }
+
+	// Check if the mesh is simulating physics
+	if (!BirdMesh->IsSimulatingPhysics()) return;
 
 	// Reset vertical velocity
 	const FVector CurrentVelocity = BirdMesh->GetPhysicsLinearVelocity();
