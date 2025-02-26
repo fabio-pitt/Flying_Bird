@@ -3,7 +3,6 @@
 #include "Widgets/MenuWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Other/Getter.h"
-#include "Other/Logs.h"
 
 // The function to construct the widget
 void UMenuWidget::NativeConstruct()

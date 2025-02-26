@@ -7,6 +7,9 @@
 #include "GameFramework/Actor.h"
 #include "PipesSpawner.generated.h"
 
+/*
+ * This Class manages the pipes spawn
+ */
 UCLASS()
 class FLAPPYBIRDCLONE_API APipesSpawner : public AActor
 {

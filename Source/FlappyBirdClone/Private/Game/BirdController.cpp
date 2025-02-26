@@ -20,7 +20,7 @@ void ABirdController::SetupInputComponent()
 	Super::SetupInputComponent();
 
 	// Check the input component
-	if (CheckInputComponent())
+	if (CheckInputComponents())
 	{
 		// Bind the input actions
 		BindInputActions();
@@ -28,7 +28,7 @@ void ABirdController::SetupInputComponent()
 }
 
 // Checks the input component
-bool ABirdController::CheckInputComponent()
+bool ABirdController::CheckInputComponents()
 {
 	// Check the input component
 	if (!InputComponent)
@@ -44,7 +44,7 @@ bool ABirdController::CheckInputComponent()
 		ULogs::Error("Controller - CheckInputComponent: No Enhanced Input Component");
 		return false;
 	}
-		
+
 	return true;
 }
 
@@ -118,7 +118,7 @@ void ABirdController::HideCursor_SetGameFocus()
 	// Hide the mouse cursor
 	SetShowMouseCursor(false);
 
-	// Set the input mode
+	// Set the input mode as game only
 	const FInputModeGameOnly InputMode_GameOnly;
 	SetInputMode(InputMode_GameOnly);
 }

@@ -11,6 +11,9 @@
 #include "Other/GameInput.h"
 #include "BirdController.generated.h"
 
+/*
+ * This Class manages player input and character control interactions.
+ */
 UCLASS()
 class FLAPPYBIRDCLONE_API ABirdController : public APlayerController
 {
@@ -41,7 +44,7 @@ protected:
 	virtual void SetupInputComponent() override;
 
 	// Called to check the input component
-	bool CheckInputComponent();
+	bool CheckInputComponents();
 	
 	// Called to bind the input actions
 	void BindInputActions();

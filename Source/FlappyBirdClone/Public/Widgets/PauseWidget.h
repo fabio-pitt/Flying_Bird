@@ -8,7 +8,8 @@
 #include "PauseWidget.generated.h"
 
 /**
- * 
+ * This is the Widget Class relative to the pause menu.
+ * It handles the buttons for resume and quit.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UPauseWidget : public UUserWidget

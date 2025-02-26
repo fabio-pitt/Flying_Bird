@@ -7,6 +7,9 @@
 #include "GameFramework/Actor.h"
 #include "Pipes.generated.h"
 
+/*
+ * This Class handles the attributes and operations of the pipes.
+ */
 UCLASS()
 class FLAPPYBIRDCLONE_API APipes : public AActor
 {

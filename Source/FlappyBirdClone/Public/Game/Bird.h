@@ -7,6 +7,9 @@
 #include "GameFramework/Actor.h"
 #include "Bird.generated.h"
 
+/*
+ * This Class provides the core implementation for the Bird, the main character.
+ */
 UCLASS()
 class FLAPPYBIRDCLONE_API ABird : public AActor
 {

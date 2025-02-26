@@ -23,6 +23,7 @@ void UAudioMute::NativeConstruct()
 }
 
 // Toggle the audio mute
+// ReSharper disable once CppUE4BlueprintCallableFunctionMayBeConst
 void UAudioMute::ToggleAudioMute()
 {
 	// Check the validation of the game instance, the audio mute button and the master sound class
@@ -53,17 +54,17 @@ void UAudioMute::ChangeButtonStyle() const
 	// Set the button for the normal state
 	FSlateBrush NormalBrush;
 	NormalBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
-	NormalBrush.TintColor = FLinearColor(0, 0, 0, 1);
+	NormalBrush.TintColor = NormalColor;
 
 	// Set the button for the hovered state
 	FSlateBrush HoveredBrush;
 	HoveredBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
-	HoveredBrush.TintColor = FLinearColor(0.35, 0.35, 0.35, 1);
+	HoveredBrush.TintColor = HoveredColor;
 
 	// Set the button for the pressed state
 	FSlateBrush PressedBrush;
 	PressedBrush.SetResourceObject(BirdInstance->GetAudioState() ? AudioUnMutedImage : AudioMutedImage);
-	PressedBrush.TintColor = FLinearColor(0.3, 0.15, 0.15, 1);
+	PressedBrush.TintColor = PressedColor;
 
 	// Update the button states
 	ButtonStyle.SetNormal(NormalBrush);

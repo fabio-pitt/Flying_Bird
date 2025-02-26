@@ -8,7 +8,7 @@
 #include "BirdInstance.generated.h"
 
 /**
- * 
+ * This Class extend the Unreal GameInstance to be specialized in save game data.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UBirdInstance : public UGameInstance, public ISaveLoadInterface

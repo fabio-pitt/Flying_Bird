@@ -9,7 +9,9 @@
 #include "MenuWidget.generated.h"
 
 /**
- * 
+ * This is the Widget Class relative to the main menu of the game.
+ * It handles the buttons to start or quit the game
+ * and the text corresponding to the saved highest score.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UMenuWidget : public UUserWidget

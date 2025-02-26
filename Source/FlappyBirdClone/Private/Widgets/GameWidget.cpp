@@ -22,17 +22,14 @@ void UGameWidget::NativeConstruct()
 		// Bind the high score event
 		BirdGameState->OnHighScore.AddDynamic(this, &UGameWidget::OnHighScore);
 	}
-	
-	if (PauseButton)
-	{
-		// Bind the pause button if the player is using an Android device
-#if PLATFORM_ANDROID // this code is executed only in Android
-		PauseButton->SetVisibility(ESlateVisibility::Visible);
-		PauseButton->OnClicked.AddDynamic(this, &UGameWidget::OnPauseButtonClicked);
+
+	// if the platform playing the game is Android, show the pause button and set the event click
+#if PLATFORM_ANDROID
+	PauseButton->SetVisibility(ESlateVisibility::Visible);
+	PauseButton->OnClicked.AddDynamic(this, &UGameWidget::OnPauseButtonClicked);
 #else
-		PauseButton->SetVisibility(ESlateVisibility::Hidden);
+	PauseButton->SetVisibility(ESlateVisibility::Hidden);
 #endif
-	}
 	
 	// Get the game instance
 	if (const auto BirdInstance = UGetter::GetBirdInstance(GetWorld()))

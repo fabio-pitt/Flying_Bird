@@ -15,13 +15,12 @@ class USaveLoadInterface : public UInterface
 };
 
 /**
- * 
+ * This is the Interface that manages the game data
  */
 class FLAPPYBIRDCLONE_API ISaveLoadInterface
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	// Create a new game
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="SaveLoad")

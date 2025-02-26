@@ -9,7 +9,9 @@
 #include "DeadWidget.generated.h"
 
 /**
- * 
+ * This is the Widget Class that appears when the Bird character is dead.
+ * It manages the reached score, the high score
+ * and the buttons to restart or quit the game.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UDeadWidget : public UUserWidget

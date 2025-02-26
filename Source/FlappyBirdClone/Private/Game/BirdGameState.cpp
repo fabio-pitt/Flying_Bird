@@ -83,10 +83,6 @@ void ABirdGameState::PauseGame(APlayerController* Controller) const
 {
 	// Log a message
 	ULogs::Info("Game paused");
-
-	// Show the mouse cursor and set the input mode "Game Only"
-	Controller->SetShowMouseCursor(true);
-	Controller->SetInputMode(FInputModeGameOnly());
 		
 	// Unpause the game
 	OnPause.Broadcast(true);
@@ -98,10 +94,6 @@ void ABirdGameState::UnpauseGame(APlayerController* Controller) const
 {
 	// Log a message
 	ULogs::Info("Game unpaused");
-
-	// Show the mouse cursor and set the input mode "Game Only"
-	Controller->SetShowMouseCursor(false);
-	Controller->SetInputMode(FInputModeGameOnly());
 		
 	// Unpause the game
 	OnPause.Broadcast(false);

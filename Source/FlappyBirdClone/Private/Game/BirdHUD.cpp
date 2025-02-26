@@ -85,7 +85,7 @@ void ABirdHUD::CreateDeadWidget()
 // The function to begin the visibility
 void ABirdHUD::DefaultWidgetsVisibility() const
 {
-	if (GameWidget) GameWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
+	if (GameWidget) GameWidget->SetVisibility(ESlateVisibility::Visible);
 	if (PauseWidget) PauseWidget->SetVisibility(ESlateVisibility::Hidden);
 	if (DeadWidget) DeadWidget->SetVisibility(ESlateVisibility::Hidden);
 }
@@ -127,7 +127,7 @@ void ABirdHUD::OnPause(const bool IsPaused)
 	if (!PauseWidget) { ULogs::Warning("Controller - OnPause: Pause widget not found"); return; }
 
 	// Check the player controller
-	ABirdController* PlayerController = UGetter::GetBirdController(GetWorld());
+	const auto PlayerController = UGetter::GetBirdController(GetWorld());
 	if (!PlayerController) return;
 	
 	// If the game is paused

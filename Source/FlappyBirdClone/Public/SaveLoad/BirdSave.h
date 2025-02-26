@@ -7,7 +7,7 @@
 #include "BirdSave.generated.h"
 
 /**
- * 
+ * This is the SaveGame Object that persists high score and audio settings between game sessions.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UBirdSave : public USaveGame

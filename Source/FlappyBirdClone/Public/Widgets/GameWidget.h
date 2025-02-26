@@ -10,7 +10,9 @@
 #include "GameWidget.generated.h"
 
 /**
- * 
+ * This is the Widget Class handling the game texts and buttons.
+ * There are the initial countdown, the current score and the high score.
+ * There is a button for the pause, visible only in Android platforms.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UGameWidget : public UUserWidget

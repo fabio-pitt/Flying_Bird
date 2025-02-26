@@ -3,15 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BirdController.h"
 #include "GameFramework/HUD.h"
 #include "Widgets/GameWidget.h"
 #include "Widgets/PauseWidget.h"
 #include "Widgets/DeadWidget.h"
 #include "BirdHUD.generated.h"
 
-/**
- * 
+/*
+ * This Class manage the game HUD.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API ABirdHUD : public AHUD

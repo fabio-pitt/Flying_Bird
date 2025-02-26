@@ -7,7 +7,7 @@
 #include "Logs.generated.h"
 
 /**
- * 
+ * This is a useful custom Library to log messages.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API ULogs : public UBlueprintFunctionLibrary

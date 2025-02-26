@@ -15,7 +15,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPause, bool, IsPaused);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDead);
 
 /**
- * 
+ * This Class is responsible for sound and events in the game.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API ABirdGameState : public AGameStateBase

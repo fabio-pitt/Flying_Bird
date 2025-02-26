@@ -8,7 +8,7 @@
 #include "GameInput.generated.h"
 
 /**
- * 
+ * In this Class there are input actions that the player can do.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UGameInput : public UDataAsset

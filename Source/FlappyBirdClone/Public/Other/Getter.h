@@ -10,7 +10,7 @@
 #include "Getter.generated.h"
 
 /**
- * 
+ * This is a useful custom Library to get some game Classes.
  */
 UCLASS()
 class FLAPPYBIRDCLONE_API UGetter : public UBlueprintFunctionLibrary
