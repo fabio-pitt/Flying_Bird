@@ -65,21 +65,18 @@ void ABirdGameState::AddScore(const uint8 Score) const
 }
 
 // Pause
-void ABirdGameState::OnBirdPause(APlayerController* Controller) const
+void ABirdGameState::OnBirdPause() const
 {
-	// Check if the controller is valid
-	if (!Controller) { ULogs::Warning("BirdGameState - OnBirdPause: Controller not found?"); return; }
-	
 	// Check if the game is already paused: unpause
 	if (UGameplayStatics::IsGamePaused(GetWorld()))
-		UnpauseGame(Controller);
+		UnpauseGame();
 
 	// If the game is not paused: pause
-	else PauseGame(Controller);
+	else PauseGame();
 }
 
 // Pause
-void ABirdGameState::PauseGame(APlayerController* Controller) const
+void ABirdGameState::PauseGame() const
 {
 	// Log a message
 	ULogs::Info("Game paused");
@@ -90,7 +87,7 @@ void ABirdGameState::PauseGame(APlayerController* Controller) const
 }
 
 // Unpause
-void ABirdGameState::UnpauseGame(APlayerController* Controller) const
+void ABirdGameState::UnpauseGame() const
 {
 	// Log a message
 	ULogs::Info("Game unpaused");

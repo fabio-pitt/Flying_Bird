@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
 #include "PauseWidget.generated.h"
 
 /**
@@ -16,6 +17,14 @@ class FLAPPYBIRDCLONE_API UPauseWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+	// The current score text
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CurrentScoreText;
+
+	// The high score text
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* HighScoreText;
+
 	// The resume button
 	UPROPERTY(meta=(BindWidget))
 	UButton* ResumeButton;
@@ -26,10 +35,10 @@ class FLAPPYBIRDCLONE_API UPauseWidget : public UUserWidget
 
 	// Called when the widget is constructed
 	virtual void NativeConstruct() override;
-
+	
 	// Bind the buttons events
 	void BindButtons();
-
+	
 	// Called when the resume button is clicked
 	UFUNCTION()
 	void OnResumeButtonClicked();
@@ -37,4 +46,8 @@ class FLAPPYBIRDCLONE_API UPauseWidget : public UUserWidget
 	// Called when the quit button is clicked
 	UFUNCTION()
 	void OnQuitButtonClicked();
+
+public:
+	// Function to load the game on start
+	void GetScore() const;
 };

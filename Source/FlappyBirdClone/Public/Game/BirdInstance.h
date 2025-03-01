@@ -28,10 +28,19 @@ class FLAPPYBIRDCLONE_API UBirdInstance : public UGameInstance, public ISaveLoad
 	// A name used to save the game
 	UPROPERTY(EditDefaultsOnly, Category="SaveLoad")
 	FString SaveName = "GameData";
-
+	
 	// Called when the game instance is initialized
 	virtual void Init() override;
 
+	// The function to start the game in fullscreen mode
+	static void SetFullScreen();
+
+	/* DEPRECATED
+	// Called to force the vertical resolution - on desktop platforms
+#if PLATFORM_DESKTOP
+	static void ForceVertical();
+#endif
+*/
 public:
 	// The interface function to create a new game
 	virtual void NewGame_Implementation() override;

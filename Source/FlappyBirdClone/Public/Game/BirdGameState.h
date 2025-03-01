@@ -7,7 +7,7 @@
 #include "GameFramework/GameStateBase.h"
 #include "BirdGameState.generated.h"
 
-// Declare delegates (start, score, pause, dead)
+// Declare delegates (start, countdown, score, pause, dead)
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnStartGame);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCountdown, float, Countdown);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnScore, uint32, Score);
@@ -88,13 +88,13 @@ public:
 	void AddScore(uint8 Score = 1) const;
 	
 	// Called on pause
-	void OnBirdPause(APlayerController* Controller) const;
+	void OnBirdPause() const;
 
 	// Called when the game is paused
-	void PauseGame(APlayerController* Controller) const;
+	void PauseGame() const;
 
 	// Called when the game is unpaused
-	void UnpauseGame(APlayerController* Controller) const;
+	void UnpauseGame() const;
 
 	// Called on dead
 	void OnBirdDead() const;

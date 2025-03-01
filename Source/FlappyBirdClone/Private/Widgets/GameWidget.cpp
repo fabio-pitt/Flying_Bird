@@ -23,11 +23,11 @@ void UGameWidget::NativeConstruct()
 		BirdGameState->OnHighScore.AddDynamic(this, &UGameWidget::OnHighScore);
 	}
 
-	// if the platform playing the game is Android, show the pause button and set the event click
+	// if the platform playing the game is Android, show the pause button
 #if PLATFORM_ANDROID
 	PauseButton->SetVisibility(ESlateVisibility::Visible);
-	PauseButton->OnClicked.AddDynamic(this, &UGameWidget::OnPauseButtonClicked);
-#else
+	PauseButton->OnPressed.AddDynamic(this, &UGameWidget::OnPauseButtonClicked);
+#else // is on desktop platform
 	PauseButton->SetVisibility(ESlateVisibility::Hidden);
 #endif
 	
@@ -76,14 +76,10 @@ void UGameWidget::OnHighScore(const uint32 HighScore)
 	if (HighScoreText) HighScoreText->SetText(FText::AsNumber(HighScore));
 }
 
-// On pause button clicked
+// On pause button clicked - on Android platform
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UGameWidget::OnPauseButtonClicked()
 {
-	// Get the player controller
-	const auto PlayerController = UGetter::GetBirdController(GetWorld());
-	if (!PlayerController) return;
-
-	// Pause the game
-	PlayerController->PauseGame();
+	// Call the pause in the game state
+	BirdGameState->OnBirdPause();
 }

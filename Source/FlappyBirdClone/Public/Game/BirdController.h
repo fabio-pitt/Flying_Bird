@@ -56,8 +56,10 @@ protected:
 	void MoveBird();
 	
 public:
-	// Called to pause the game
+	// Called to pause the game - on desktop platforms
+#if PLATFORM_WINDOWS
 	void PauseGame();
+#endif
 
 	// Show the cursor and set the focus on the widget
 	void ShowCursor_SetWidgetFocus(UWidget* WidgetToFocus);

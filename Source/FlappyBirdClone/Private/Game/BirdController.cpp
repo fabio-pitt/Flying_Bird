@@ -58,18 +58,17 @@ void ABirdController::BindInputActions()
 	if (!Input->Fly) ULogs::Warning("Controller - BindInputActions: Fly action not found");
 	else EnhancedInputComponent->BindAction(Input->Fly, ETriggerEvent::Started, this, &ABirdController::MoveBird);
 
-	// Pause
+	// Pause action - on desktop platforms
+#if PLATFORM_DESKTOP
 	if (!Input->Pause) ULogs::Warning("Controller - BindInputActions: Pause action not found");
 	else EnhancedInputComponent->BindAction(Input->Pause, ETriggerEvent::Started, this, &ABirdController::PauseGame);
+#endif
 }
 
 // Called when the game starts
 void ABirdController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// Set the resolution
-	ConsoleCommand("r.setRes 720x1280");
 	
 	// Set the game focus
 	HideCursor_SetGameFocus();
@@ -90,14 +89,16 @@ void ABirdController::MoveBird()
 	if (Bird) Bird->ApplyImpulse();
 }
 
-// The function to pause the game
+// The function to pause the game - on desktop platforms
+#if PLATFORM_DESKTOP
 // ReSharper disable once CppMemberFunctionMayBeConst
 void ABirdController::PauseGame()
 {
+	// Get the bird game state, checking if it's valid and call the pause
 	if (const ABirdGameState* BirdGameState = UGetter::GetBirdGameState(GetWorld()))
-		BirdGameState->OnBirdPause(this);
-	else ULogs::Error("Controller - PauseGame: BirdGameState not found");
+		BirdGameState->OnBirdPause();
 }
+#endif
 
 // Show the mouse cursor and set the input mode "UI only"
 void ABirdController::ShowCursor_SetWidgetFocus(UWidget* WidgetToFocus)

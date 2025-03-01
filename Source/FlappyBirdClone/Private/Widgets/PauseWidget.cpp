@@ -9,6 +9,9 @@ void UPauseWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	// Get the score text
+	GetScore();
+
 	// Call the function to bind the buttons events
 	BindButtons();
 }
@@ -23,20 +26,27 @@ void UPauseWidget::BindButtons()
 	if (QuitButton) QuitButton->OnClicked.AddDynamic(this, &UPauseWidget::OnQuitButtonClicked);
 }
 
+// The function to load the game
+void UPauseWidget::GetScore() const
+{	
+	// Get the game instance
+	const auto BirdInstance = UGetter::GetBirdInstance(GetWorld());
+	if (!BirdInstance) return;
+
+	// Get the current score and set as text
+	if (CurrentScoreText) CurrentScoreText->SetText(FText::AsNumber(BirdInstance->GetCurrentScore()));
+
+	// Get the high score and set as text
+	if (HighScoreText) HighScoreText->SetText(FText::AsNumber(BirdInstance->GetHighScore()));
+}
+
 // The function to resume the game
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UPauseWidget::OnResumeButtonClicked()
 {
-	// Get the bird game state and check if it is valid
-	const ABirdGameState* BirdGameState = UGetter::GetBirdGameState(GetWorld());
-	if (!BirdGameState) return;
-
-	// Get the bird controller and check if it is valid
-	ABirdController* BirdController = UGetter::GetBirdController(GetWorld());
-	if (!BirdController) return;
-
-	// Broadcast the resume event
-	BirdGameState->OnBirdPause(BirdController);
+	// Get the bird game state, checking if it's valid and call the pause
+	if (const ABirdGameState* BirdGameState = UGetter::GetBirdGameState(GetWorld()))
+		BirdGameState->OnBirdPause();
 }
 
 // The function to quit the game

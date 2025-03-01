@@ -61,4 +61,8 @@ protected:
 
 	// Change the button image
 	void ChangeButtonStyle() const;
+
+	// The function to set the volume of the master sound class
+	UFUNCTION(BlueprintCallable)
+	void SetVolume() const;
 };

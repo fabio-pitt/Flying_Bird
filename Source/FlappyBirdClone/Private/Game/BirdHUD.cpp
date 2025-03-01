@@ -126,6 +126,9 @@ void ABirdHUD::OnPause(const bool IsPaused)
 	// Check if the pause widget is valid
 	if (!PauseWidget) { ULogs::Warning("Controller - OnPause: Pause widget not found"); return; }
 
+	// Check if the game widget is valid
+	if (!GameWidget) { ULogs::Warning("Controller - OnPause: Game widget not found"); return; }
+
 	// Check the player controller
 	const auto PlayerController = UGetter::GetBirdController(GetWorld());
 	if (!PlayerController) return;
@@ -133,8 +136,14 @@ void ABirdHUD::OnPause(const bool IsPaused)
 	// If the game is paused
 	if (IsPaused)
 	{
+		// Get the score
+		PauseWidget->GetScore();
+		
 		// Set the pause widget as visible
 		PauseWidget->SetVisibility(ESlateVisibility::Visible);
+
+		// Hide the game widget
+		GameWidget->SetVisibility(ESlateVisibility::Hidden);
 
 		// Call the function in the player controller to show the mouse cursor and set the input mode "UI only"
 		PlayerController->ShowCursor_SetWidgetFocus(PauseWidget);
@@ -145,6 +154,9 @@ void ABirdHUD::OnPause(const bool IsPaused)
 	{
 		// Set the pause widget as hidden (not visible and not hittable)
 		PauseWidget->SetVisibility(ESlateVisibility::Hidden);
+
+		// Show the game widget
+		GameWidget->SetVisibility(ESlateVisibility::Visible);
 
 		// Call the function in the player controller to hide the mouse cursor and set the input mode "Game only"
 		PlayerController->HideCursor_SetGameFocus();

@@ -1,6 +1,7 @@
 ﻿// 3D version of Flappy Bird. Original by Dong Nguyen. Remake by Fabio Pittaccio.
 
 #include "Game/BirdInstance.h"
+#include "GameFramework/GameUserSettings.h"
 #include "Kismet/GameplayStatics.h"
 #include "Other/Logs.h"
 
@@ -8,7 +9,9 @@
 void UBirdInstance::Init()
 {
 	Super::Init();
-	ULogs::Info("New Instance");
+
+	// Set the full screen
+	SetFullScreen();
 
 	// Load the game
 	Execute_LoadGame(this);
@@ -18,6 +21,20 @@ void UBirdInstance::Init()
 
 	// Save the game
 	Execute_SaveGame(this);
+}
+
+// Set the full screen
+void UBirdInstance::SetFullScreen()
+{
+	// Get the game user settings
+	UGameUserSettings* CustomUserSettings = UGameUserSettings::GetGameUserSettings();
+	if (!CustomUserSettings) return;
+
+	// Set the windowed mode
+	CustomUserSettings->SetFullscreenMode(EWindowMode::Type::Fullscreen);
+
+	// Apply the modified settings
+	CustomUserSettings->ApplySettings(true);
 }
 
 // Create a new save game
