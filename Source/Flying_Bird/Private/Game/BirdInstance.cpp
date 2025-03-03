@@ -10,8 +10,10 @@ void UBirdInstance::Init()
 {
 	Super::Init();
 
-	// Set the full screen
-	SetFullScreen();
+	// Set the window mode - only in desktop platforms
+#if PLATFORM_DESKTOP
+	SetWindowMode();
+#endif
 
 	// Load the game
 	Execute_LoadGame(this);
@@ -23,19 +25,24 @@ void UBirdInstance::Init()
 	Execute_SaveGame(this);
 }
 
-// Set the full screen
-void UBirdInstance::SetFullScreen()
+// Set the window mode - only in desktop platforms
+#if PLATFORM_DESKTOP
+void UBirdInstance::SetWindowMode()
 {
 	// Get the game user settings
 	UGameUserSettings* CustomUserSettings = UGameUserSettings::GetGameUserSettings();
 	if (!CustomUserSettings) return;
 
 	// Set the windowed mode
-	CustomUserSettings->SetFullscreenMode(EWindowMode::Type::Fullscreen);
+	CustomUserSettings->SetFullscreenMode(EWindowMode::Type::Windowed);
+
+	// Set the window size
+	CustomUserSettings->SetScreenResolution(FIntPoint(720, 1280));
 
 	// Apply the modified settings
 	CustomUserSettings->ApplySettings(true);
 }
+#endif
 
 // Create a new save game
 void UBirdInstance::NewGame_Implementation()

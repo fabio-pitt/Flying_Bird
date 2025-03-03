@@ -31,16 +31,12 @@ class FLYING_BIRD_API UBirdInstance : public UGameInstance, public ISaveLoadInte
 	
 	// Called when the game instance is initialized
 	virtual void Init() override;
-
-	// The function to start the game in fullscreen mode
-	static void SetFullScreen();
-
-	/* DEPRECATED
-	// Called to force the vertical resolution - on desktop platforms
+	
+	// The function to start the game in windowed mode - only in desktop platforms
 #if PLATFORM_DESKTOP
-	static void ForceVertical();
+	static void SetWindowMode();
 #endif
-*/
+
 public:
 	// The interface function to create a new game
 	virtual void NewGame_Implementation() override;
