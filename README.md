@@ -23,7 +23,7 @@ IDE: *JetBrain Rider*
 - Orientation: https://www.svgrepo.com/svg/67755/switch-orientation-button
 
 *Font*
-https://fonts.google.com/specimen/Poetsen+One
+- https://fonts.google.com/specimen/Poetsen+One
 
 ## Other Software Used
 
