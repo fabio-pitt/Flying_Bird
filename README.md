@@ -1,4 +1,4 @@
-# Flappy Bird Clone
+# Flying Bird
 
 ## Info
 
