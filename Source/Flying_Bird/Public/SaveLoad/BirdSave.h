@@ -21,7 +21,7 @@ protected:
 
 	// The audio state
 	UPROPERTY(SaveGame)
-	bool AudioEnabled = true;
+	bool bIsAudioActive = true;
 
 public:
 	/** SCORE **/
@@ -33,8 +33,8 @@ public:
 
 	/** AUDIO **/
 	// Set the audio state
-	void SetAudioState(const bool IsEnabled) { AudioEnabled = IsEnabled; }
+	void SetAudioState(const bool IsActivated) { bIsAudioActive = IsActivated; }
 
 	// Get the audio state
-	bool GetAudioState() const { return AudioEnabled; }
+	bool GetAudioState() const { return bIsAudioActive; }
 };

@@ -18,8 +18,8 @@ class FLYING_BIRD_API UBirdInstance : public UGameInstance, public ISaveLoadInte
 	// The current score
 	uint32 CurrentScore = 0;
 
-	// The current mute state
-	bool bIsMuted = false;
+	// The current audio active/mute state
+	bool bIsAudioActive = true;
 
 	// The current saved game
 	UPROPERTY(EditDefaultsOnly, Category="SaveLoad")
