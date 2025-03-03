@@ -20,7 +20,6 @@ IDE: *JetBrain Rider*
 - Audio: https://www.vecteezy.com/png/27379024-sound-speaker-icon-megaphone-announcement-icon-louder-sound-symbol-mp3-button-musical-design-elements-stereo-button-audio-symbol-speaker-pictogram-silhouette
 - No Audio: https://www.vecteezy.com/vector-art/27383291-no-sound-icon-no-noise-mute-button-keep-your-volume-lower-silence-icon-speaker-icon-megaphone-symbol-turn-off-button-with-red-cross-vector-illustration-musical-design-elements
 - Pause: https://www.flaticon.com/free-icon/rounded-pause-button_61039?term=pause&page=1&position=84&origin=tag&related_id=61039
-- Orientation: https://www.svgrepo.com/svg/67755/switch-orientation-button
 
 *Font*
 - https://fonts.google.com/specimen/Poetsen+One
