@@ -1,7 +1,5 @@
 # Flying Bird
 
-## Info
-
 This is a 3D version of **Flappy Bird**  
 Original by *Dong Nguyen*  
 Remake by *Fabio Pittaccio*  
@@ -23,7 +21,13 @@ IDE: *JetBrain Rider*
 - No Audio: https://www.vecteezy.com/vector-art/27383291-no-sound-icon-no-noise-mute-button-keep-your-volume-lower-silence-icon-speaker-icon-megaphone-symbol-turn-off-button-with-red-cross-vector-illustration-musical-design-elements
 - Pause: https://www.flaticon.com/free-icon/rounded-pause-button_61039?term=pause&page=1&position=84&origin=tag&related_id=61039
 
-### Other Software Used
+## Other Software Used
+
 - Firefox: to search and download assets
 - Blender: to edit and convert 3D assets
 - Photoshop: to edit images
+
+## TODO
+
+- Landscape mode!
+- Multiplayer, maybe?
