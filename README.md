@@ -21,9 +21,10 @@ IDE: *JetBrain Rider*
 - No Audio: https://www.vecteezy.com/vector-art/27383291-no-sound-icon-no-noise-mute-button-keep-your-volume-lower-silence-icon-speaker-icon-megaphone-symbol-turn-off-button-with-red-cross-vector-illustration-musical-design-elements
 - Pause: https://www.flaticon.com/free-icon/rounded-pause-button_61039?term=pause&page=1&position=84&origin=tag&related_id=61039
 
-*Font* https://fonts.google.com/specimen/Poetsen+One
+*Font*
+- https://fonts.google.com/specimen/Poetsen+One
 
 ## Other Software Used
 
-*- Blender:* to edit and convert 3D assets
-*- Photoshop:* to create icons and splash screen
+- Blender: to edit and convert 3D assets
+- Photoshop: to create icons and splash screen
